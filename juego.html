@@ -1,0 +1,129 @@
+<script>
+menu();
+function ahorcado(){
+    var letra = "";
+    var vidas = 5;
+    var intentos = 0;
+    var aciertos = 0;
+
+    var palabraIngresada = prompt("Ingrese una palabra");
+    var palabra = palabraIngresada.toUpperCase();
+    
+    var palabraOculta = "";
+    for (var i = 0; i < palabra.length; i++) {
+        palabraOculta += "_";
+    }
+    var arrayPalabra = palabra.split("");
+    var arrayPalabraOculta = palabraOculta.split("");
+    
+    var contador = 0;
+    for(var i = 0; i < arrayPalabra.length; i++){
+        if(arrayPalabra[i] != " "){
+            contador++;
+        }
+    }
+    console.log("la palabra tiene " + contador + " letras");
+
+
+
+    console.log(arrayPalabra);
+    console.log(arrayPalabraOculta);
+
+    while(intentos < vidas && arrayPalabraOculta.indexOf("_") != -1){
+        letra = prompt("Ingrese una letra");
+        letra = letra.toUpperCase();
+        console.log("La letra ingresada es " + letra);
+        if(letra.length > 1){
+            alert("Solo puede ingresar un caracter");
+        }else{
+            if(arrayPalabra.indexOf(letra) != -1){
+                for(var i = 0; i < arrayPalabra.length; i++){
+                    if(arrayPalabra[i] == letra){
+                        arrayPalabraOculta[i] = letra;
+                        aciertos++;
+                    }
+                }
+                console.log(arrayPalabraOculta);
+                
+            }else{
+                //si la letra no esta en la palabra
+                intentos++;
+                alert("el caracter ingresado no esta en la palabra");
+                alert("Te quedan " + (vidas - intentos) + " vidas");
+               switch(vidas - intentos){
+                    case 4:
+                        alert("se te ha cortado el brazo");
+                        break;
+                    case 3:
+                        alert("se te ha cortado el otro brazo");
+                        break;
+                    case 2:
+                        alert("se te ha cortado la pierna");
+                        break;
+                    case 1:
+                        alert("se te ha cortado la otra pierna");
+                        break;
+                    case 0:
+                        alert("se te ha cortado el cuello, has muerto");
+                        break;
+               }
+            }
+        }
+        if(aciertos == contador){
+            console.clear();
+            console.log("Felicidades, ganaste la palabra es " + palabra);
+            break;
+        }
+        if(intentos == vidas){
+            console.clear();
+            console.log("Perdiste, la palabra era " + palabra);
+            break;
+        }
+
+    }
+}
+
+function instrucciones(){
+    console.log("1. el juego consiste en adivinar una palabra"
+    + "\n2. el jugador ingresa una letra y el programa le dice si esta en la palabra o no"
+    + "\n3. si el jugador adivina la palabra, el programa le dice que gano"
+    + "\n4. si el jugador pierde, el programa le dice que perdio y le dice la palabra"
+    + "\n5. el jugador tiene 5 vidas para adivinar la palabra"
+    + "\n6. si el jugador pierde una vida, el programa le dice que pierde una vida"
+    + "\n7. solo se admite una letrapor intento");
+    
+
+    var continuar = prompt("volver al menu? (si/no)");
+    if(continuar == "si"){
+        console.clear();
+        menu();
+    }else{
+        console.clear();
+        alert("gracias por jugar");
+    }
+    }
+
+
+
+
+
+function menu(){
+    var menu = prompt("Que desea realizar \n 1. Jugar \n 2. Ver las instrucciones \n 3. Salir");
+    switch(menu){
+        case "1":
+            ahorcado();
+            break;
+        case "2":
+            instrucciones();
+            break;
+        case "3":
+            alert("Gracias por jugar");
+            break;
+        default:
+            alert("Ingrese una opcion valida");
+            menu();
+    }
+}
+
+
+</script>
